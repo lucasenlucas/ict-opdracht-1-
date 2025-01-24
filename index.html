@@ -3,11 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Code Checker</title>
+  <title>Code Game</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f4f4f9;
+      background-color: #1a1a1d;
+      color: #fff;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -17,34 +18,38 @@
 
     .container {
       text-align: center;
-      background: #fff;
-      padding: 20px 40px;
-      border-radius: 8px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      background: #2b2b2f;
+      padding: 30px 50px;
+      border-radius: 10px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+      animation: fadeIn 1s ease-in-out;
     }
 
     h1 {
-      font-size: 24px;
+      font-size: 28px;
       margin-bottom: 20px;
     }
 
     input {
       padding: 10px;
-      font-size: 16px;
-      width: 200px;
-      margin-bottom: 10px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
+      font-size: 18px;
+      width: 220px;
+      margin-bottom: 20px;
+      border: 2px solid #555;
+      border-radius: 5px;
+      background: #fff;
+      color: #000;
     }
 
     button {
-      padding: 10px 20px;
-      font-size: 16px;
+      padding: 10px 25px;
+      font-size: 18px;
       background-color: #007bff;
       color: white;
       border: none;
-      border-radius: 4px;
+      border-radius: 5px;
       cursor: pointer;
+      animation: pulse 1.5s infinite;
     }
 
     button:hover {
@@ -53,14 +58,59 @@
 
     #message {
       margin-top: 20px;
-      font-size: 18px;
+      font-size: 20px;
       font-weight: bold;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.1);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    @keyframes shake {
+      0% {
+        transform: translateX(0);
+      }
+      25% {
+        transform: translateX(-5px);
+      }
+      50% {
+        transform: translateX(5px);
+      }
+      75% {
+        transform: translateX(-5px);
+      }
+      100% {
+        transform: translateX(0);
+      }
+    }
+
+    .shake {
+      animation: shake 0.5s ease;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Voer de geheime code in</h1>
+    <h1>voer de code in die je hebt gevonden</h1>
     <input type="text" id="codeInput" placeholder="Voer de code in" maxlength="4">
     <button id="checkCodeBtn">Controleer</button>
     <p id="message"></p>
@@ -69,13 +119,19 @@
     document.getElementById("checkCodeBtn").addEventListener("click", function () {
       const input = document.getElementById("codeInput").value;
       const message = document.getElementById("message");
+      const container = document.querySelector(".container");
 
       if (input === "3795") {
         message.textContent = "Je hebt het gehaald! Dit is het einde.";
-        message.style.color = "green";
+        message.style.color = "lime";
+        container.style.boxShadow = "0 0 20px lime";
       } else {
         message.textContent = "Onjuiste code. Probeer opnieuw.";
         message.style.color = "red";
+        container.classList.add("shake");
+        setTimeout(() => {
+          container.classList.remove("shake");
+        }, 500);
       }
     });
   </script>
